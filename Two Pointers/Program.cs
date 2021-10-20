@@ -6,7 +6,27 @@ namespace Two_Pointers
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(HasTwoPairsEqualsTarget(new int[] { 1,2,3,4,5,6 }, 6));
+            Node root = new Node() { Val = 1 };
+            root.Next = new Node() { Val = 2 };
+            root.Next.Next = new Node() { Val = 3 };
+            root.Next.Next.Next = new Node() { Val = 4 };
+            root.Next.Next.Next.Next = root.Next.Next.Next;
+            Console.WriteLine(HasACycleInLinkedList(root));
+            //Console.WriteLine(HasTwoPairsEqualsTarget(new int[] { 1, 2, 3, 4, 5, 6 }, 6));
+        }
+
+        static bool HasACycleInLinkedList(Node root)
+        {
+            Node fast = root, slow = root;
+
+            while (fast != null && fast.Next != null)
+            {
+                slow = slow.Next;
+                fast = fast.Next.Next;
+
+                if (slow == fast) return true;
+            }
+            return false;
         }
         static bool HasTwoPairsEqualsTarget(int[] array, int target)
         {
@@ -25,5 +45,12 @@ namespace Two_Pointers
 
             return false;
         }
+    }
+
+    class Node
+    {
+        public int Val { get; set; }
+
+        public Node Next { get; set; }
     }
 }
